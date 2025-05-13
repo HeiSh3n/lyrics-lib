@@ -18,17 +18,16 @@ npm install lyrics-lib
 ```js
 import { getLyrics } from 'lyrics-lib';
 
-// With both title and artist
-const lyrics1 = await getLyrics({ title: 'Shape of You', artist: 'Ed Sheeran' });
-console.log(lyrics1);
-
-// With only title (artist is optional)
-const lyrics2 = await getLyrics({ title: 'Yesterday' });
-console.log(lyrics2);
+// Fetch lyrics for any song. 'artist' is optional.
+const lyrics = await getLyrics({
+  title: 'Your Song Title', // required
+  // artist: 'Artist Name', // optional
+});
+console.log(lyrics);
 ```
 
 ## 💖 Support
-[![Buy Me a Coffee](https://cdn.ko-fi.com/cdn/kofi_button.png?v=3)](https://ko-fi.com/heishen)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/heishen)
 
 ## License
 Licensed under the [MIT License](LICENSE)
