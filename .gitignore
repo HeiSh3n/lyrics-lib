@@ -1,5 +1,6 @@
 # Node
 node_modules/
+package-lock.json
 
 # Build output
 # dist/
@@ -26,6 +27,16 @@ Thumbs.db
 .nyc_output/
 coverage/
 
+# TypeDoc output
+/docs/
+.typedoc/
+# End TypeDoc ignores
+
 # Misc
 *.swp
-*.swo 
+*.swo
+
+# Do not ignore .github folder or its markdown docs
+!.github/
+!.github/CHANGELOG.md
+!.github/CONTRIBUTING.md 

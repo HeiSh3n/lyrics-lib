@@ -1,1 +1,2 @@
-export { getLyrics, GetLyricsOptions } from './core/lyricsFetcher'; 
+export * from './core';
+export * from './errors';

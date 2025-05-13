@@ -1,34 +1,47 @@
-# lyrics-lib
+<p align="center">
+  <img src="https://nodei.co/npm/lyrics-lib.png?downloads=true&downloadRank=true&stars=true" alt="npm install lyrics-lib" />
+</p>
 
-A library for fetching song lyrics, designed for easy integration into music-related applications and bots.
+<p align="center">
+  <img src="https://img.shields.io/node/v/lyrics-lib?color=brightgreen&label=node" alt="Node Version" />
+  <img src="https://img.shields.io/npm/dm/lyrics-lib?label=downloads" alt="Downloads" />
+  <img src="https://img.shields.io/github/stars/HeiSh3n/lyrics-lib?style=social" alt="GitHub stars" />
+</p>
 
-## Features
-- Fetch lyrics for songs by title (artist is optional)
-- Multi-language support (as supported by lrclib)
-- Extensible and easy to use
-- Written in TypeScript for type safety
-- No API keys required (uses the public [lrclib API](https://lrclib.net/))
+<p align="center">
+  <a href="https://ko-fi.com/your-kofi-username" target="_blank">
+    <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Buy Me a Coffee" />
+  </a>
+</p>
+
+## lyrics-lib
+
+**lyrics-lib** is a modern, extensible Node.js library for fetching song lyrics from multiple sources (Genius, Musixmatch, LRC, and more).  
+It supports multiple languages and is designed for easy integration into bots, apps, and music tools.
+
+## ✨ Features
+
+- **Easy Integration:** Simple, modern API for fetching lyrics by title and/or artist.
+- **Multi-language Support:** Works with songs in many languages.
+- **Multiple Sources:** Fetches from Genius, Musixmatch, LRC, and more.
+- **No API Key Required:** Scrapes if no key is provided.
+- **TypeScript Support:** Written in TypeScript for type safety.
+- **Extensible:** Easily add new providers or adapters.
+
+## Requirements
+
+- Node.js >= 18.0.0
 
 ## Installation
+
 ```sh
 npm install lyrics-lib
 ```
 
-## Example Usage
-```js
-import { getLyrics } from 'lyrics-lib';
+## 🤝 Contributing
 
-// With both title and artist
-const lyrics1 = await getLyrics({ title: 'Shape of You', artist: 'Ed Sheeran' });
-console.log(lyrics1);
-
-// With only title (artist is optional)
-const lyrics2 = await getLyrics({ title: 'Yesterday' });
-console.log(lyrics2);
-```
-
-## 💖 Support
-[![Buy Me a Coffee](https://cdn.ko-fi.com/cdn/kofi_button.png?v=3)](https://ko-fi.com/heishen)
+Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a pull request.
 
 ## License
-Licensed under the [MIT License](LICENSE)
+
+[MIT](LICENSE)

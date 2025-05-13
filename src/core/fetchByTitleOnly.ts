@@ -1,6 +1,11 @@
 import { fetchWithHeaders } from './fetchWithHeaders';
 import { LRCLIB_API } from '../config/constants';
 
+/**
+ * Fetch lyrics for a song by its title only using the LRCLIB API.
+ * @param title - The title of the song to search for.
+ * @returns The lyrics as a string if found, otherwise null.
+ */
 export async function fetchByTitleOnly(title: string): Promise<string | null> {
   const searchParams = new URLSearchParams({ track_name: title });
   const searchUrl = `${LRCLIB_API}/search?${searchParams.toString()}`;
