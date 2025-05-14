@@ -1,0 +1,1 @@
+export { getLyrics, GetLyricsOptions } from './core/lyricsFetcher'; 
