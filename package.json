@@ -1,8 +1,15 @@
 {
   "name": "lyrics-lib",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A library for fetching song lyrics, designed for easy integration into music-related applications and bots.",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Heishen/lyrics-lib.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
