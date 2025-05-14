@@ -1,5 +1,5 @@
 {
-  "name": "lyrics",
+  "name": "lyrics-lib",
   "version": "1.0.0",
   "description": "A library for fetching song lyrics, designed for easy integration into music-related applications and bots.",
   "main": "index.js",
