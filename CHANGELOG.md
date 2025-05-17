@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.4] - 2025-05-14
+## [1.0.4] - 2025-05-16
 
 ### Changed
 - The codebase is now pure TypeScript in the src/ directory; all .js files have been removed from source.
