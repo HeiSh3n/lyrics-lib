@@ -1,26 +1,42 @@
-# Node modules and build output
+# Node
 node_modules/
-dist/
+package-lock.json
 
-# Testing and scripts
-*.test.js
-test-lyrics.js
-test-lyrics.ts
+# Build output
+# dist/
 
-# Environment and config
+# Environment and secrets
 .env
 .env.*
 
-# Editor and OS files
+# Test and manual scripts
+test-lyrics.js
+test-lyrics.ts
+
+# Logs
+*.log
+
+# OS/IDE
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/
 
-# Cache and logs
+# Cache
 .cache/
 .nyc_output/
 coverage/
-*.log
 
-# Cursor/IDE
-.vscode/
-.idea/ 
+# TypeDoc output
+/docs/
+.typedoc/
+# End TypeDoc ignores
+
+# Misc
+*.swp
+*.swo
+
+# Do not ignore .github folder or its markdown docs
+!.github/
+!.github/CHANGELOG.md
+!.github/CONTRIBUTING.md 
