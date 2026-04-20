@@ -1,6 +1,6 @@
 {
   "name": "lyrics-lib",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Async Node.js client for the public LRCLIB lyrics API. Fetches plain or synced lyrics by title (and optional artist).",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
