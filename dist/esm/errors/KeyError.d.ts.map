@@ -1,0 +1,1 @@
+{"version":3,"file":"KeyError.d.ts","sourceRoot":"","sources":["../../../src/errors/KeyError.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAc,EAAE,MAAM,qBAAqB,CAAC;AAErD;;;;;;GAMG;AACH,qBAAa,QAAS,SAAQ,cAAc;IAC1C,SAAkB,IAAI,cAAc;gBAExB,MAAM,CAAC,EAAE,MAAM;CAG5B"}

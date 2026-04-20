@@ -1,4 +1,4 @@
-import type { ParsedLyrics, LyricLine } from '../types';
+import type { ParsedLyrics, LyricLine } from '../types.js';
 
 /**
  * Parses a lyrics string into synced and unsynced lines.

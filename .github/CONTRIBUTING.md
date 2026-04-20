@@ -1,62 +1,63 @@
 # Contributing to lyrics-lib
 
-Thank you for your interest in contributing to lyrics-lib! This document provides guidelines and instructions for contributing to the project.
+Thanks for your interest in contributing! This document covers the basics of
+filing issues and submitting pull requests.
 
-## 📝 Issues
+## Issues
 
-- The issue tracker is for **bug reports only**.
-- For questions or feature suggestions, please check the FAQ and existing issues (both open and closed) before opening a new one.
+- The issue tracker is for **bug reports** and **feature proposals**.
+- Before filing a new one, please search existing issues (open and closed).
 
-## 🛠️ Pull Requests
+## Pull requests
 
-We welcome contributions via pull requests! Please follow these guidelines:
-
-1. **Fork the repository** and create a new branch from `main` for your changes:
+1. **Fork** the repository and create a branch from `main`:
    ```sh
    git checkout -b feature/your-feature-name
    ```
 2. **Install dependencies:**
    ```sh
-   npm ci
+   npm install
    ```
-3. **Make your changes**, ensuring they align with the project's goals and coding style.
-
-4. **Run checks** before submitting:
+   (No `package-lock.json` is committed; `.gitignore` excludes it.)
+3. **Make your changes**, matching the project's coding style and keeping
+   modules thin and composable.
+4. **Run the checks** before submitting:
    ```sh
-   npm run prettier    # Format code
-   npm run lint        # Check for linting errors
-   npm run build       # Ensure the project compiles
-   npm run test        # Run tests
+   npm run typecheck   # tsc --noEmit
+   npm run build       # produces dist/
+   npm test            # vitest
    ```
-
-5. **Commit your changes** using the Conventional Commits format:
-   ```sh
-   git commit -m "feat: add new feature"
+5. **Commit** using [Conventional Commits](https://www.conventionalcommits.org/):
    ```
+   feat: add support for ...
+   fix: correct behavior of ...
+   docs: update README for ...
+   refactor: simplify ...
+   chore: bump dependency ...
+   ```
+6. **Open a pull request** against `main` with a focused summary and a link
+   to any related issue.
 
-6. **Create a pull request:** Push your branch to your fork and open a pull request against the `main` branch of the lyrics-lib repository.
+### PR guidelines
 
-### Pull Request Guidelines
+- Keep each PR focused on a single concern.
+- Update or add tests for behavior changes.
+- Update docs (`README.md`, `.github/CHANGELOG.md`) when user-facing
+  behavior changes.
+- Ensure `npm run typecheck`, `npm run build`, and `npm test` all pass.
 
-- Keep pull requests focused on a single issue or feature.
-- Include relevant tests for your changes.
-- Update documentation (if applicable).
-- Follow the project's existing code style.
-- Ensure all tests pass before submitting.
-- Link any related issues in the pull request description.
+## Development setup
 
-## ⚙️ Development Setup
+- **Runtime**: Node.js **>= 18** (the code uses the global `fetch`).
+- **Language**: TypeScript (strict mode).
+- **Build**: `tsc` (see `tsconfig.json`).
+- **Tests**: Vitest (`tests/**/*.test.ts`).
+- **Docs**: TypeDoc (`npm run docs`).
 
-lyrics-lib is built with TypeScript and uses the following tools:
+Formatters and linters are not currently wired up; please keep diffs tidy
+(consistent indentation, no stray trailing whitespace, etc.).
 
-- **npm**: Package manager
-- **Prettier**: Code formatter
-- **ESLint**: Linter
-- **Vitest**: Test runner
-- **TypeDoc**: Documentation generator
+## License
 
-## ⚖️ License
-
-By contributing to lyrics-lib, you agree that your contributions will be licensed under the MIT License.
-
-Thank you for helping make lyrics-lib better! 💖 
+By contributing, you agree your contributions are licensed under MIT, the
+same license as the rest of the project.

@@ -36,7 +36,12 @@ coverage/
 *.swp
 *.swo
 
+# Local AI-assistant context files — not published to GitHub
+CLAUDE.md
+AGENTS.md
+
 # Do not ignore .github folder or its markdown docs
 !.github/
 !.github/CHANGELOG.md
-!.github/CONTRIBUTING.md 
+!.github/CONTRIBUTING.md
+ 

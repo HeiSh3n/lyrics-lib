@@ -1,0 +1,1 @@
+{"version":3,"file":"NoResultError.js","sourceRoot":"","sources":["../../../src/errors/NoResultError.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAc,EAAE,MAAM,qBAAqB,CAAC;AAErD;;;;;GAKG;AACH,MAAM,OAAO,aAAc,SAAQ,cAAc;IAC7B,IAAI,GAAG,eAAe,CAAC;IAEzC;QACE,KAAK,CAAC,qBAAqB,CAAC,CAAC;IAC/B,CAAC;CACF"}

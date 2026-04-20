@@ -1,0 +1,1 @@
+{"version":3,"file":"NotImplementedError.d.ts","sourceRoot":"","sources":["../../../src/errors/NotImplementedError.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAc,EAAE,MAAM,qBAAqB,CAAC;AAErD;;;;GAIG;AACH,qBAAa,mBAAoB,SAAQ,cAAc;IACrD,SAAkB,IAAI,yBAAyB;IAC/C,QAAQ,CAAC,QAAQ,EAAE,MAAM,CAAC;IAC1B,QAAQ,CAAC,OAAO,CAAC,EAAE,MAAM,CAAC;gBAEd,QAAQ,EAAE,MAAM,EAAE,OAAO,CAAC,EAAE,MAAM;CAS/C"}

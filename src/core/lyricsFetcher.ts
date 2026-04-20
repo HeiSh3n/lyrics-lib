@@ -1,24 +1,29 @@
-import { fetchByTrackAndArtist } from './fetchByTrackAndArtist';
-import { fetchByTitleOnly } from './fetchByTitleOnly';
+import { LyricsLibError } from '../errors/LyricsLibError.js';
+import type { GetLyricsOptions } from '../types.js';
+import { fetchByTitleOnly } from './fetchByTitleOnly.js';
+import { fetchByTrackAndArtist } from './fetchByTrackAndArtist.js';
 
 /**
- * Options for fetching lyrics, including song title and optional artist.
- */
-export interface GetLyricsOptions {
-  title: string;
-  artist?: string;
-}
-
-/**
- * Fetch lyrics for a song by title and optionally artist. Tries artist+title first, then falls back to title only.
- * @param options - The options containing the song title and optional artist.
- * @returns The lyrics as a string if found, otherwise null.
+ * Fetch lyrics for a track from LRCLIB.
+ *
+ * Strategy:
+ * 1. If `artist` is provided, try the exact title + artist lookup first.
+ * 2. If that returns no lyrics (or no artist was given), fall back to a
+ *    title-only search and use the first result.
+ *
+ * Returns the lyrics as a string, or `null` if nothing was found.
+ *
+ * Throws:
+ * - {@link LyricsLibError} when `title` is empty.
+ * - {@link RequestError} on transport or non-2xx server failure.
  */
 export async function getLyrics({ title, artist }: GetLyricsOptions): Promise<string | null> {
-  if (!title) throw new Error('Title is required');
+  if (!title) throw new LyricsLibError('Title is required');
+
   if (artist) {
-    const result = await fetchByTrackAndArtist(title, artist);
-    if (result) return result;
+    const exact = await fetchByTrackAndArtist(title, artist);
+    if (exact) return exact;
   }
-  return await fetchByTitleOnly(title);
+
+  return fetchByTitleOnly(title);
 } 

@@ -1,90 +1,158 @@
-<p align="center">
-  <img src="https://nodei.co/npm/lyrics-lib.png?downloads=true&downloadRank=true&stars=true" alt="npm install lyrics-lib" />
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/node/v/lyrics-lib?color=brightgreen&label=node" alt="Node Version" />
-  <img src="https://img.shields.io/npm/dm/lyrics-lib?label=downloads" alt="Downloads" />
-  <img src="https://img.shields.io/github/stars/HeiSh3n/lyrics-lib?style=social" alt="GitHub stars" />
-</p>
-
-<p align="center">
-  <a href="https://ko-fi.com/your-kofi-username" target="_blank">
-    <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Buy Me a Coffee" />
-  </a>
-</p>
-
 # lyrics-lib
 
-**lyrics-lib** is a modern, extensible Node.js library for fetching song lyrics from multiple sources (Genius, Musixmatch, LRC, and more).  
-It supports multiple languages and is designed for easy integration into bots, apps, and music tools.
+[![npm version](https://img.shields.io/npm/v/lyrics-lib.svg)](https://www.npmjs.com/package/lyrics-lib)
+[![Node](https://img.shields.io/node/v/lyrics-lib?color=brightgreen&label=node)](https://nodejs.org)
+[![Downloads](https://img.shields.io/npm/dm/lyrics-lib?label=downloads)](https://www.npmjs.com/package/lyrics-lib)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## ✨ Features
+Async Node.js client for the public [LRCLIB](https://lrclib.net/) lyrics API.
+Returns plain or synced lyrics for a track by title (and optional artist).
+Written in TypeScript with full `.d.ts` declarations.
 
-- **Easy Integration:** Simple, modern API for fetching lyrics by title and/or artist.
-- **Multi-language Support:** Works with songs in many languages.
-- **Multiple Sources:** Fetches from Genius, Musixmatch, LRC, and more.
-- **No API Key Required:** Scrapes if no key is provided.
-- **TypeScript Support:** Written in TypeScript for type safety.
-- **Extensible:** Easily add new providers or adapters.
+> **Scope:** Today, only the LRCLIB provider returns lyrics. Genius and
+> Musixmatch ship as **placeholder providers** — registered and importable,
+> but their `fetchLyrics` calls throw `NotImplementedError` until the real
+> integrations land. See [Providers](#providers).
 
-## 📦 Requirements
+## Requirements
 
-- Node.js >= 18.0.0
+- Node.js **>= 18** (uses the global `fetch`)
 
-## 🚀 Installation
+## Install
 
 ```sh
 npm install lyrics-lib
 ```
 
-## 🛠️ Usage
+## Quick start
 
 ```ts
-import { getLyrics } from 'lyrics-lib';
-// Optionally, for parsing synced/unsynced lines:
-import { parseLyrics } from 'lyrics-lib/dist/utils/parseLyrics'; // See note below
+import { getLyrics, parseLyrics } from 'lyrics-lib';
 
-async function main() {
-  // Fetch lyrics by title and artist (recommended)
-  const lyrics = await getLyrics({ title: 'Shape of You', artist: 'Ed Sheeran' });
+const lyrics = await getLyrics({ title: 'Shape of You', artist: 'Ed Sheeran' });
 
-  if (lyrics) {
-    console.log('Lyrics found:\n', lyrics);
+if (lyrics) {
+  console.log(lyrics);
 
-    // Optionally parse into synced/unsynced lines
-    const parsed = parseLyrics(lyrics);
-    console.log('Parsed:', parsed);
-  } else {
-    console.log('No lyrics found for this song.');
-  }
+  // Optional: split synced ([mm:ss.xx]) lines from plain lines
+  const { synced, unsynced } = parseLyrics(lyrics);
+  console.log(synced ?? unsynced);
+} else {
+  console.log('No lyrics found.');
 }
-
-main().catch(console.error);
 ```
 
-> **Note:**  
-> - `getLyrics({ title, artist? })` returns the lyrics as a string, or `null` if not found.  
-> - You can also call `getLyrics({ title })` with just a title; it will try to find the best match.
-> - To use `parseLyrics`, import directly from `lyrics-lib/dist/utils/parseLyrics` (until a public utils export is added).
-> - All functions are async and require Node.js 18+ (for native fetch).
+## API
 
-## 📚 Documentation
+### `getLyrics(options): Promise<string | null>`
 
-See the [API documentation](./docs/index.html) for full details.
+```ts
+interface GetLyricsOptions {
+  title: string;        // required
+  artist?: string;      // recommended for accuracy
+}
+```
 
-## 🤝 Contributing
+- With `artist`: hits `GET /api/get?track_name=&artist_name=` first.
+- Without `artist` (or if the artist+title lookup misses): falls back to
+  `GET /api/search` and uses the **first** result with no ranking — pass an
+  artist when match precision matters.
+- Returns `plainLyrics` if available, else `syncedLyrics`, else `null`.
+- Throws `LyricsLibError("Title is required")` when `title` is empty.
+- Throws `RequestError` on transport failure or non-2xx HTTP responses
+  (other than 404, which is treated as "no result" and returns `null`).
 
-Contributions are welcome! Please read our [Contributing Guidelines](.github/CONTRIBUTING.md) before submitting a pull request.
+### `parseLyrics(raw): ParsedLyrics`
 
-## 📄 License
+Splits a raw LRC string into synced and unsynced lines.
+
+```ts
+interface ParsedLyrics {
+  synced: { text: string; startTime: number }[] | null; // ms from start
+  unsynced: { text: string }[];
+}
+```
+
+`synced` is `null` when the input has no `[mm:ss.xx]` timestamps.
+
+### Errors
+
+All library-thrown errors extend `LyricsLibError` (which extends `Error`).
+
+| Class            | When                                               |
+| ---------------- | -------------------------------------------------- |
+| `RequestError`   | Transport failure or non-2xx HTTP response         |
+| `NotFoundError`  | Reserved for callers preferring exception flow     |
+| `LyricsLibError` | Base class — catch this to handle all of the above |
+
+`RequestError` exposes `.status` (HTTP status, when applicable) and `.cause`
+(the underlying error, when applicable).
+
+## Providers
+
+The library exposes a small provider abstraction so additional sources can
+be wired in without touching the public `getLyrics` surface.
+
+```ts
+import { providers, lrclibProvider, geniusProvider, musixmatchProvider, type LyricsProvider } from 'lyrics-lib';
+
+// All registered providers, keyed by name
+console.log(Object.keys(providers)); // ['lrclib', 'genius', 'musixmatch']
+
+// Use a provider directly
+const lyrics = await lrclibProvider.fetchLyrics({ title: 'Imagine', artist: 'John Lennon' });
+```
+
+| Provider               | Status         | Notes                                                |
+| ---------------------- | -------------- | ---------------------------------------------------- |
+| `lrclibProvider`       | ✅ implemented | Backs `getLyrics`. No API key.                       |
+| `geniusProvider`       | 🟡 placeholder | Throws `NotImplementedError` until the API/scrape lands. |
+| `musixmatchProvider`   | 🟡 placeholder | Throws `NotImplementedError`; will require an API key. |
+
+The `LyricsProvider` interface is the contract — any future implementation
+just needs `name: string` and `fetchLyrics(opts): Promise<string | null>`.
+A `NotImplementedError` is thrown by placeholder providers and exposes
+`.provider` and `.feature` so a fallback chain can skip an unavailable
+source without losing diagnostic context.
+
+`getLyrics` itself only consults LRCLIB today. A future minor release will
+add an opt-in multi-provider strategy without breaking existing callers.
+
+## How it picks lyrics
+
+LRCLIB returns both `plainLyrics` and `syncedLyrics` per track when available.
+This library prefers `plainLyrics` — if you specifically want timestamped
+output, parse the result and check whether `synced` is non-null:
+
+```ts
+const raw = await getLyrics({ title, artist });
+if (raw) {
+  const { synced } = parseLyrics(raw);
+  if (synced) {
+    /* use timestamps */
+  }
+}
+```
+
+## Development
+
+```sh
+npm install
+npm run build       # dual build → dist/esm + dist/cjs (types + source maps)
+npm run typecheck   # tsc --noEmit
+npm run docs        # typedoc → docs/
+npm test            # vitest
+```
+
+`tsconfig.json` emits the ESM build into `dist/esm`; `tsconfig.cjs.json`
+emits the CJS build into `dist/cjs`. Each includes its own `.d.ts` and
+source maps. `prepublishOnly` cleans and rebuilds before any `npm publish`.
+
+## Contributing
+
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md). Conventional Commits
+(`feat:`, `fix:`, `docs:`, `refactor:`, `chore:`).
+
+## License
 
 [MIT](LICENSE)
-
-## 💖 Support
-
-<p align="center">
-  <a href="https://ko-fi.com/your-kofi-username" target="_blank">
-    <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Buy Me a Coffee" />
-  </a>
-</p>

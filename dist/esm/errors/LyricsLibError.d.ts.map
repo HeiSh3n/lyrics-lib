@@ -1,0 +1,1 @@
+{"version":3,"file":"LyricsLibError.d.ts","sourceRoot":"","sources":["../../../src/errors/LyricsLibError.ts"],"names":[],"mappings":"AAAA;;;GAGG;AACH,qBAAa,cAAe,SAAQ,KAAK;IACvC,SAAkB,IAAI,EAAE,MAAM,CAAoB;gBAEtC,OAAO,EAAE,MAAM,EAAE,OAAO,CAAC,EAAE;QAAE,KAAK,CAAC,EAAE,OAAO,CAAA;KAAE;CAM3D"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"musixmatch.js","sourceRoot":"","sources":["../../../src/providers/musixmatch.ts"],"names":[],"mappings":";;;AAAA,6EAAuE;AAIvE;;;;;;;;;GASG;AACU,QAAA,kBAAkB,GAAmB;IAChD,IAAI,EAAE,YAAY;IAElB,KAAK,CAAC,WAAW,CAAC,QAA0B;QAC1C,MAAM,IAAI,4CAAmB,CAAC,YAAY,EAAE,aAAa,CAAC,CAAC;IAC7D,CAAC;CACF,CAAC"}

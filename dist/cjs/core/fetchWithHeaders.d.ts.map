@@ -1,0 +1,1 @@
+{"version":3,"file":"fetchWithHeaders.d.ts","sourceRoot":"","sources":["../../../src/core/fetchWithHeaders.ts"],"names":[],"mappings":"AAGA;;;;GAIG;AACH,MAAM,WAAW,YAAY;IAC3B,KAAK,CAAC,EAAE,MAAM,CAAC;IACf,MAAM,CAAC,EAAE,MAAM,CAAC;CACjB;AAED;;;;;;;;;;GAUG;AACH,wBAAsB,gBAAgB,CAAC,GAAG,EAAE,MAAM,EAAE,GAAG,CAAC,EAAE,YAAY,GAAG,OAAO,CAAC,QAAQ,CAAC,CAgBzF"}

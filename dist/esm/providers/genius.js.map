@@ -1,0 +1,1 @@
+{"version":3,"file":"genius.js","sourceRoot":"","sources":["../../../src/providers/genius.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,mBAAmB,EAAE,MAAM,kCAAkC,CAAC;AAIvE;;;;;;;;;GASG;AACH,MAAM,CAAC,MAAM,cAAc,GAAmB;IAC5C,IAAI,EAAE,QAAQ;IAEd,KAAK,CAAC,WAAW,CAAC,QAA0B;QAC1C,MAAM,IAAI,mBAAmB,CAAC,QAAQ,EAAE,aAAa,CAAC,CAAC;IACzD,CAAC;CACF,CAAC"}

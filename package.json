@@ -1,27 +1,62 @@
 {
   "name": "lyrics-lib",
-  "version": "1.0.5",
-  "description": "A library for fetching song lyrics, designed for easy integration into music-related applications and bots.",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "Async Node.js client for the public LRCLIB lyrics API. Fetches plain or synced lyrics by title (and optional artist).",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/HeiSh3n/lyrics-lib.git"
+    "url": "git+https://github.com/HeiSh3n/lyrics-lib.git"
+  },
+  "homepage": "https://github.com/HeiSh3n/lyrics-lib#readme",
+  "bugs": {
+    "url": "https://github.com/HeiSh3n/lyrics-lib/issues"
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "typedoc"
+    "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
+    "build:esm": "tsc --project tsconfig.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build": "npm run build:esm && npm run build:cjs",
+    "postbuild": "node -e \"require('fs').writeFileSync('dist/esm/package.json', '{\\\"type\\\":\\\"module\\\"}\\n'); require('fs').writeFileSync('dist/cjs/package.json', '{\\\"type\\\":\\\"commonjs\\\"}\\n');\"",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "docs": "typedoc",
+    "prepublishOnly": "npm run clean && npm run build"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "lyrics",
+    "lrclib",
+    "lrc",
+    "synced-lyrics",
+    "music",
+    "api-client"
+  ],
+  "author": "HeiSh3n",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^20.11.0",
     "typedoc": "^0.28.4",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^2.1.0"
   },
-  "dependencies": {
-    "cheerio": "^1.0.0"
-  }
+  "dependencies": {}
 }
