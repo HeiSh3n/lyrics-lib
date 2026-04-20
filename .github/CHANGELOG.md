@@ -103,6 +103,24 @@ Most v1.x callers need no changes. Watch out for:
 - If you imported `parseLyrics` via `lyrics-lib/dist/utils/parseLyrics`,
   switch to `import { parseLyrics } from 'lyrics-lib'`.
 
+## [1.0.6] - 2025-07-08
+
+### Added
+- **Dual module support:** The library now builds and publishes both ESM and CommonJS outputs for maximum compatibility with Node.js and modern bundlers.
+- **New build scripts:** Added `build:esm`, `build:cjs`, and updated `build` script to generate both module types.
+
+### Changed
+- **package.json:**  
+  - Set `main` to `dist/cjs/index.js` (CommonJS entry).
+  - Set `module` to `dist/esm/index.js` (ESM entry).
+  - Set `types` to `dist/esm/index.d.ts`.
+  - Added `exports` field for proper Node.js and bundler resolution.
+
+### Fixed
+- Consumers can now use either:
+  - `import { getLyrics } from 'lyrics-lib'` (ESM)
+  - `const { getLyrics } = require('lyrics-lib')` (CommonJS)
+
 ## [1.0.5] - 2025-05-17
 
 ### Added
