@@ -218,6 +218,10 @@ npm test            # vitest
 emits the CJS build into `dist/cjs`. Each includes its own `.d.ts` and
 source maps. `prepublishOnly` cleans and rebuilds before any `npm publish`.
 
+## Repobeats
+
+![Alt](https://repobeats.axiom.co/api/embed/3315917123481ba2fb6c2df44c733eed59af059b.svg "Repobeats analytics image")
+
 ## Contributing
 
 See [CONTRIBUTING.md](.github/CONTRIBUTING.md). Conventional Commits
